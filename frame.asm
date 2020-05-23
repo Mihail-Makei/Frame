@@ -14,6 +14,7 @@ MsgFive db 'computing his mass causes stack overflow', 0
 .code
 
 		COLOR equ 0Ah
+		WHITE equ 0Fh
 
 org 100h
 
@@ -167,14 +168,14 @@ ClrScr endp
 ;===================================================
 PrintHorizontal proc 
 		mov al, 205d
-		mov ah, 0Fh
+		mov ah, WHITE
 		
 		cld
 HR:
 		stosw 
 		call Delay
 		mov al, 205d
-		mov ah, 0Fh
+		mov ah, WHITE
 		loop HR
 		
 
@@ -198,7 +199,7 @@ Print:
 		
 		call Delay
 		mov al, 186d
-		mov ah, 0Fh
+		mov ah, WHITE
 		loop Print
 
 		ret
@@ -213,7 +214,7 @@ endp PrintVertical
 
 PrintFrame proc
 		mov al, 201d
-		mov ah, 0Fh
+		mov ah, WHITE
 		stosw
 
 		mov dx, cx
@@ -249,7 +250,7 @@ PrintFrame proc
 		mov cx, bx
 Left:
 		mov al, 186d
-		mov ah, 0Fh
+		mov ah, WHITE
 
 		stosw
 
