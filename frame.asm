@@ -73,7 +73,13 @@ Start:
 ;=======================PROCEDURES=========================================
 
 ;=======================LONG DELAY=========================================
-
+;==========================================================================
+; Expects: none
+;
+; Returns: none
+;
+; Destroys: ax, cx, dx
+;==========================================================================
 LongDelay proc
 		mov ax, 8600h
 		mov cx, 000Ah
@@ -83,7 +89,13 @@ LongDelay proc
 		ret
 endp LongDelay
 
-
+;===================================================
+; Expects: none
+;
+; Returns: none
+;
+; Destroys: ax
+;===================================================
 Delay proc
 		mov ax, 8600h
 
@@ -99,6 +111,13 @@ Delay proc
 		ret
 endp Delay
 
+;===================================================
+; Expects: bx - offset to string
+;
+; Returns: none
+;
+; Destroys: ax
+;===================================================
 
 PrintLine proc
 		mov al, [bx]
@@ -112,7 +131,7 @@ Symbol:
 		
 		stosw
 
-		add bx, 1
+		inc bx
 		
 		call Delay
 
@@ -125,6 +144,13 @@ FinalPrt:
 		ret
 PrintLine endp
 
+;===================================================
+; Expects: none
+;
+; Returns: none
+;
+; Destroys: ax
+;===================================================
 ClrScr proc
 		mov ax, 0003h
 		int 10h
@@ -132,9 +158,18 @@ ClrScr proc
 		ret
 ClrScr endp
 
+;===================================================
+; Expects: es:[di] - offset to write
+;
+; Returns: none
+;
+; Destroys: ax, di
+;===================================================
 PrintHorizontal proc 
 		mov al, 205d
 		mov ah, 0Fh
+		
+		cld
 HR:
 		stosw 
 		call Delay
@@ -146,8 +181,17 @@ HR:
 		ret
 endp PrintHorizontal
 
+;===================================================
+; Expects: es:[di] - offset to write
+;
+; Returns: none
+;
+; Destroys: ax, di
+;===================================================
 PrintVertical proc
 		mov al, 186d
+		
+		cld
 Print:
 		stosw
 		add di, 79*2
@@ -159,6 +203,13 @@ Print:
 
 		ret
 endp PrintVertical
+;==================================================================
+; Expects: es:[di] - offset to print
+;
+; Returns: none
+;
+; Destroys: ax, cx
+;==================================================================
 
 PrintFrame proc
 		mov al, 201d
